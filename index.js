@@ -9,12 +9,10 @@ import db from './src/models';
 
 const app = new Koa();
 
-
 const typeDefs = gql`
 scalar Date
 
 type Query {
-  hello: String,
   events: [Event!]!
 }
 
@@ -49,9 +47,8 @@ type Mutation {
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!',
-      events: (parent, { name, description, startAt, endAt }, { db }, info) =>
-    db.event.findAll()
+    events: (parent, { name, description, startAt, endAt }, { db }, info) =>
+      db.event.findAll()
   },
   Mutation: {
     createEvent: (parent, { name, description, startAt, endAt }, { db }, info) => {
@@ -100,4 +97,4 @@ app.use(bodyParser());
 
 apolloServer.applyMiddleware({ app });
 
-app.listen(3000);
+app.listen(4000);
